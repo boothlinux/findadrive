@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+FindADrive.ca
+{% endblock title %}
+
+{% block content %}
+
+</style>
+<!--<meta http-equiv="refresh" content="10">-->
+
+<section class="form-gradient">
+    <!--Form with header-->
+    <div class="card col-md-6">
+      <!--Header-->
+      <div class="header">
+        <div class="row d-flex justify-content-center">
+          <h3 class="font-weight-bold">Find a drive</h3>
+        </div>
+      </div>
+      <!--Header-->
+      <div class="card-body mx-4 mt-4">
+        <!--Body-->
+        <div class="md-form">
+            <form action = "" method = "post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-success">Request A Drive</button>
+                </form>
+        </div>
+  
+  
+        <!--Grid row-->
+        <div class="row d-flex align-items-center mb-4">
+  
+          <!--Grid column-->
+  
+          <!--Grid column-->
+
+          <!--Grid column-->
+  
+        </div>
+        <!--Grid row-->
+
+  
+    </div>
+    <!--/Form with header-->
+  
+  </section>
+{% endblock content %}

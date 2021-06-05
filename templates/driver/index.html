@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+FindADrive.ca
+{% endblock title %}
+
+{% block content %}
+<meta http-equiv="refresh" content="10">
+{{ object_list }}}}
+{% if object_list %}
+    <ul>
+
+    {% for riderequest in object_list %}
+    {% if not riderequest.accepted_ride %}
+        {% if riderequest.pickup_town not in riderequest.dropoff_town %}
+            {{ riderequest.passenger }}  -  {{ riderequest.pickup_town }} {{ riderequest.dropoff_town }}
+        {% else %}
+        <li><button type="submit" class="btn btn-primary">Bid</button>{{ riderequest.passenger }}  - {{ riderequest.pickup_street_address }}, {{ riderequest.pickup_town}} <b>to</b> {{ riderequest.dropoff_street_address }} {{ riderequest.dropoff_town}} </li>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+    
+    </ul>
+{% endif %}
+{% endblock content %}
