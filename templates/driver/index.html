@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
-
+<style>
+    li{
+        margin: 10px 0;
+    }
+</style>
 {% block title %}
 FindADrive.ca
 {% endblock title %}
 
 {% block content %}
 <meta http-equiv="refresh" content="10">
-{{ object_list }}}}
 {% if object_list %}
-    <ul>
-
+    <ul style="list-style-type:none;margin: 10px 0;">
+    <h3 style="margin: 10px 0;">Available Drive Requests</h3>
     {% for riderequest in object_list %}
     {% if not riderequest.accepted_ride %}
         {% if riderequest.pickup_town not in riderequest.dropoff_town %}
-            {{ riderequest.passenger }}  -  {{ riderequest.pickup_town }} {{ riderequest.dropoff_town }}
+            &emsp {{ riderequest.passenger }}  -  {{ riderequest.pickup_town }} {{ riderequest.dropoff_town }}
         {% else %}
-        <li><button type="submit" class="btn btn-primary">Bid</button>{{ riderequest.passenger }}  - {{ riderequest.pickup_street_address }}, {{ riderequest.pickup_town}} <b>to</b> {{ riderequest.dropoff_street_address }} {{ riderequest.dropoff_town}} </li>
+        <li style="margin: 10px 0;"><button type="submit" class="btn btn-primary">Bid</button>  {{ riderequest.passenger }}  - {{ riderequest.pickup_street_address }}, {{ riderequest.pickup_town}} <b>to</b> {{ riderequest.dropoff_street_address }} {{ riderequest.dropoff_town}} </li>
         {% endif %}
     {% endif %}
     {% endfor %}

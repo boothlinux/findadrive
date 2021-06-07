@@ -7,15 +7,56 @@ FindADrive.ca
 {% endblock title %}
 
 {% block content %}
-
+<style>
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+}
+.flex-container {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.row {
+    width: auto;
+}
+.flex-item {
+    background-color: tomato;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    line-height: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+}
+  .card{
+    background-color: lightgrey;
+  }
+  .box.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 <!--<meta http-equiv="refresh" content="10">-->
-
-<section class="form-gradient">
+<h3> Welcome to FindADrive.ca!</h3>
+<section class="form-gradient flex-container">
     <!--Form with header-->
-    <div class="card col-md-6">
+    <div class="card col-md-6 center box">
       <!--Header-->
-      <div class="header">
+      <div class="header driveheader">
         <div class="row d-flex justify-content-center">
           <h3 class="font-weight-bold">Find a drive</h3>
         </div>
@@ -30,21 +71,6 @@ FindADrive.ca
                 <button type="submit" class="btn btn-success">Request A Drive</button>
                 </form>
         </div>
-  
-  
-        <!--Grid row-->
-        <div class="row d-flex align-items-center mb-4">
-  
-          <!--Grid column-->
-  
-          <!--Grid column-->
-
-          <!--Grid column-->
-  
-        </div>
-        <!--Grid row-->
-
-  
     </div>
     <!--/Form with header-->
   
