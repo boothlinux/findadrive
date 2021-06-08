@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["192.168.2.11"]
 
-
+LOGIN_REDIRECT_URL = '/passenger'
+LOGOUT_REDIRECT_URL = '/accounts/login'
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,7 +42,8 @@ INSTALLED_APPS = [
     'passenger',
     'django_extensions',
     'crispy_forms',
-    'bootstrap3'
+    'bootstrap3',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,11 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}

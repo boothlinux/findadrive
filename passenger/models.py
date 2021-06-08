@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Passenger(models.Model):
@@ -11,7 +12,7 @@ class Passenger(models.Model):
         return string
     
 class RideRequest(models.Model):
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE, default=None)
+    passenger = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
     pickup_town = models.ForeignKey('driver.Community', on_delete=models.CASCADE, default=None, blank=True, related_name="pickup_town")
     pickup_street_address = models.CharField(max_length=50)
     pickup_postal_code = models.CharField(max_length=7, blank=True)
