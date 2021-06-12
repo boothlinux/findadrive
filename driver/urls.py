@@ -4,5 +4,5 @@ from driver.views import DriverIndex
 
 
 urlpatterns = [
-    path('dashboard', DriverIndex.as_view()),
+    path('', DriverIndex.as_view()),
 ]
