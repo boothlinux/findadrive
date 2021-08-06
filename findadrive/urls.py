@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from passenger.views import SignupPage
+from .views import MainPage
 
 urlpatterns = [
+    path('', MainPage.as_view()),
     path('driver/', include('driver.urls')),
     path('passenger/', include('passenger.urls')),
     path('admin/', admin.site.urls),

@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-dbeg+%a43+m)uvwmax=afbn=*a!r4p9$nc4yxr9o!44u(3qxln
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.2.11", "127.0.0.1"]
+ALLOWED_HOSTS = ["192.168.2.11", "127.0.0.1", "31.220.109.196", "findadrive.ca", "drivens.ca", "ridens.ca"]
+
 
 LOGIN_REDIRECT_URL = '/passenger'
 LOGOUT_REDIRECT_URL = '/accounts/login'

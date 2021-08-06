@@ -1,8 +1,8 @@
-from driver.models import Community
+from driver.models import Community, Bid
 from django.shortcuts import render
-from django.views.generic import TemplateView, UpdateView, DetailView, CreateView
+from django.views.generic import TemplateView, UpdateView, DetailView, CreateView, ListView
 from .models import *
-from .forms import RideRequestForm
+from .forms import RideRequestForm, RegisterForm
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.http import Http404
@@ -44,7 +44,7 @@ class PassengerIndex(CreateView):
             instance.passenger = self.request.user
             instance.save()
             #form.save()
-            return HttpResponseRedirect('/passenger/')
+            return redirect('passenger-request')
         else:
             return HttpResponseRedirect('/passenger/')
 
@@ -79,17 +79,35 @@ class LoginPage(TemplateView):
 
 class SignupPage(CreateView):
     template_name = "registration/signup.html"
-    form_class = UserCreationForm
+    form_class = RegisterForm
 
     def post(self, request):
-        form = UserCreationForm(self.request.POST)
+        form = RegisterForm(self.request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('passenger-home')
         else:
-            form = UserCreationForm()
+            form = RegisterForm()
         return render(request, 'signup.html', {'form': form})
+
+class CurrentRequest(ListView):
+    template_name = "passenger/request.html"
+    model = RideRequest
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        my_ride_request = RideRequest.objects.get(passenger=self.request.user, accepted_ride=False)
+        context['pickup_address'] = my_ride_request.pickup_street_address
+        context['pickup_town'] = my_ride_request.pickup_town
+        context['dropoff_address'] = my_ride_request.dropoff_street_address
+        context['dropoff_town'] = my_ride_request.dropoff_town
+        try:
+            context['bids'] = Bid.objects.filter(ride_request=my_ride_request)
+        except:
+            context['bids'] = None
+        return context
