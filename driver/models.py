@@ -36,7 +36,7 @@ class Bid(models.Model):
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
-        string = self.ride_request + " " + self.price
-        return self.string
+        string = str(self.ride_request) + " " + str(self.price)
+        return str(self.ride_request) + " " + str(self.price)
 
 
