@@ -4,6 +4,7 @@ from .views import *
 
 
 urlpatterns = [
+    path('mydrive/', MyDrive.as_view()),
     path('', PassengerIndex.as_view(), name='passenger-home'),
     path('api/rrlist/', RideRequestList.as_view()),
     path('login/', LoginPage.as_view(), name='passenger-login'),

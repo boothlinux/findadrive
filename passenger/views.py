@@ -1,6 +1,6 @@
 from driver.models import Community, Bid
 from django.shortcuts import render
-from django.views.generic import TemplateView, UpdateView, DetailView, CreateView, ListView
+from django.views.generic import TemplateView, ListView, UpdateView, DetailView, CreateView
 from .models import *
 from .forms import RideRequestForm, RegisterForm
 from django.http import HttpResponseRedirect
@@ -44,9 +44,27 @@ class PassengerIndex(CreateView):
             instance.passenger = self.request.user
             instance.save()
             #form.save()
-            return redirect('passenger-request')
+
+            return HttpResponseRedirect('/passenger/mydrive/')
         else:
             return HttpResponseRedirect('/passenger/')
+
+class MyDrive(ListView):
+    template_name = "passenger/mydrive.html"
+    model = RideRequest
+
+    def get_queryset(self):
+        return RideRequest.objects.get(accepted_ride=False, completed_ride=False, passenger=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(MyDrive, self).get_context_data(**kwargs)
+        riderequest = RideRequest.objects.get(accepted_ride=False, completed_ride=False, passenger=self.request.user)
+        print(riderequest)
+        bid_list = Bid.objects.filter(ride_request=riderequest)
+        context["bids"] = bid_list
+        context["riderequest"] = riderequest
+        return context
+
 
 class RideRequestList(APIView):
     """
@@ -84,6 +102,7 @@ class SignupPage(CreateView):
     def post(self, request):
         form = RegisterForm(self.request.POST)
         if form.is_valid():
+            print("hello")
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
