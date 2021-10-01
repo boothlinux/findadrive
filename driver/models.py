@@ -1,5 +1,7 @@
 from django.db import models
 from passenger.models import RideRequest
+from django.contrib.auth.models import User
+
 
 # Create your models here.
 
@@ -33,10 +35,9 @@ class Bid(models.Model):
     price = models.CharField(max_length=10)
     comment = models.CharField(max_length=1024)
     ride_request = models.ForeignKey(RideRequest, on_delete=models.CASCADE, default=None)
-    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, default=None)
+    driver = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
 
     def __str__(self):
-        string = self.ride_request + " " + self.price
-        return self.string
+        return str(self.ride_request.passenger) + " - " + str(self.ride_request.pickup_town) + " to " + str(self.ride_request.dropoff_town)
 
 
